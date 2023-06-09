@@ -1,5 +1,7 @@
 # Metodologia para ciencia de datos:
 
+<img src="https://www.notion.so/image/https%3A%2F%2Fcf-courses-data.s3.us.cloud-object-storage.appdomain.cloud%2FIBMDeveloperSkillsNetwork-DS0103EN-SkillsNetwork%2Flabs%2FModule%25201%2Fimages%2Flab1_fig2_datascience_methodology_flowchart.png?id=7a22586d-8ff2-432f-a375-3a2252c0772e&table=block&spaceId=d93753ff-1ce2-49e0-b47a-fddd016cd6fa&width=2000&userId=0c97f95a-c3c1-47df-98e3-8fcb89338013&cache=v2" alt="PATH" width="100%">
+
 El enfoque del problema
 
 - Cual es el problema que esta intentando resolver?
@@ -34,6 +36,6 @@ Que tipo de preguntas se pueden generar?
 
 
 
-<img src="https://www.notion.so/image/https%3A%2F%2Fcf-courses-data.s3.us.cloud-object-storage.appdomain.cloud%2FIBMDeveloperSkillsNetwork-DS0103EN-SkillsNetwork%2Flabs%2FModule%25201%2Fimages%2Flab1_fig2_datascience_methodology_flowchart.png?id=7a22586d-8ff2-432f-a375-3a2252c0772e&table=block&spaceId=d93753ff-1ce2-49e0-b47a-fddd016cd6fa&width=2000&userId=0c97f95a-c3c1-47df-98e3-8fcb89338013&cache=v2" alt="PATH" width="200">
 
-#####EN ESTE FOLDER DEBEN RELACIONARSE TODOS LOS NOTEBOOKS CREADOS QUE ENTRENEN ALGUN MODELO DE IA. RECUERDE EL FLUJO DE TRABAJO DE CIENCIA DE DATOS. 
+
+##### EN ESTE FOLDER DEBEN RELACIONARSE TODOS LOS NOTEBOOKS CREADOS QUE ENTRENEN ALGUN MODELO DE IA. RECUERDE EL FLUJO DE TRABAJO DE CIENCIA DE DATOS. 
