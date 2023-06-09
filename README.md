@@ -9,8 +9,10 @@ Este es el repositorio principal del OOVS, en este encuentra todos los flujos de
 
 🚀 
 El objetivo del observatorio de ocupación y valor del suelo, es monitorear y evaluar los efectos que tienen los proyectos de los corredores verdes de alta y media capacidad en la ciudad de Bogotá sobre las dinámicas de ocupación del suelo, las variables socioeconómicas y fluctuaciones en el valor de diferentes mercados del suelo e inmobiliarios en su área de influencia. Esto, con el fin de incidir y soportar la toma de decisiones relacionada con la formulación y seguimiento de las políticas públicas de estos corredores y su participación en la captura del valor generado en los diferentes mercados.
-Project Organization
 
+
+
+Project Organization
 ------------
 
     ├── LICENSE
