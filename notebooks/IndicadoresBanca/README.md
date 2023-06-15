@@ -7,9 +7,9 @@ La ENT, o entropía, se calcula a lo largo del corredor de la PLMB en una zona d
 La ENT mide la mezcla del uso del suelo considerando el porcentaje relativo de dos o más tipos de uso del suelo dentro de un área específica, y su valor máximo es 1 cuando existe un uso balanceado entre todos los usos, y su valor mínimo es 0 cuando el uso del suelo es homogéneo.
 
 Este índice se calculará en cada zona de influencia en lotes considerados "desarrollables", es decir, aquellos que no tienen ninguna restricción urbanística para su desarrollo, como por ejemplo, condiciones patrimoniales, clasificación como equipamientos o usos institucionales.
-
+<br><br>
 <img src="https://acoustic-jump-94e.notion.site/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F37212ffe-33dc-4d83-9608-23b0cd7df5f7%2FUntitled.png?id=ac2f5614-1eae-4ed9-bdbf-10084017ac6b&table=block&spaceId=d93753ff-1ce2-49e0-b47a-fddd016cd6fa&width=2000&userId=&cache=v2" alt="OOVS" width="500">
-
+<br>
 # Fuentes de DATOS:
 
 - Catastro censo inmobiliario (2006-2022). Registros administrativos
@@ -31,16 +31,15 @@ https://www.google.com/maps/d/u/1/edit?mid=1XH_UHl0pTo5LKN2mV52QkqaxhfvtDgqu&usp
 3. En la linea del viaducto se aplica la herramienta de area de influencia para calcular el buffer a 100 mts. 
 4. Cruce entre los datos agrupados y las capas de planeación, estas seran nuestras restricciones para el calculo.
 5. Para facilitar el calculo e interpretación. Se reproyectan las estaciones (Coordenadas planas) y se le asignan la manzana más cercana. Algoritmo “sjoin_nearest”.
-
-
+<br>
 <img src="https://acoustic-jump-94e.notion.site/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F6ddf24b4-d891-416f-a60a-e4a86863c4e6%2FUntitled.png?id=331da8be-5406-4475-8e78-b0dc8648ad1d&table=block&spaceId=d93753ff-1ce2-49e0-b47a-fddd016cd6fa&width=960&userId=&cache=v2" alt="OOVS" width="400">
-
+<br>
     
 6. Se aplica la formula para cada una de las estaciones y años disponibles para el calculo, en resumen se saca la tabla pivot por año. 
 
 ## Resultados iteracion 1
-
-<img src="https://acoustic-jump-94e.notion.site/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F473af09b-a29b-499e-ad22-10f8826b9d68%2FUntitled.png?id=65533bab-eda6-494a-9e7a-feb1cefb70d7&table=block&spaceId=d93753ff-1ce2-49e0-b47a-fddd016cd6fa&width=2000&userId=&cache=v2" alt="OOVS" width="500">
+<br>
+<img src="https://acoustic-jump-94e.notion.site/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F473af09b-a29b-499e-ad22-10f8826b9d68%2FUntitled.png?id=65533bab-eda6-494a-9e7a-feb1cefb70d7&table=block&spaceId=d93753ff-1ce2-49e0-b47a-fddd016cd6fa&width=2000&userId=&cache=v2" alt="OOVS" width="800">
 
 # FACTOR DE OCUPACIÓN TOTAL
 
@@ -68,4 +67,5 @@ Es un **Índice de Construcción** Total que se realiza sobre la totalidad de lo
 7. QUITAR LOS PREDIOS QUE SERAN DEMOLIDOS.
 
 # Estructura Resultados FOT:
-<img src="https://acoustic-jump-94e.notion.site/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F6f3c6e61-adb1-4574-8929-947e6402611a%2FUntitled.png?id=8a255c8d-5cf1-4943-a89c-5028b3a6ecd5&table=block&spaceId=d93753ff-1ce2-49e0-b47a-fddd016cd6fa&width=770&userId=&cache=v2" alt="OOVS" width="500">
+<br>
+<img src="https://acoustic-jump-94e.notion.site/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F6f3c6e61-adb1-4574-8929-947e6402611a%2FUntitled.png?id=8a255c8d-5cf1-4943-a89c-5028b3a6ecd5&table=block&spaceId=d93753ff-1ce2-49e0-b47a-fddd016cd6fa&width=770&userId=&cache=v2" alt="OOVS" width="300">
