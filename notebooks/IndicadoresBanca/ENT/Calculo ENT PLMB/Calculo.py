@@ -91,23 +91,120 @@ del conditions, choices
 
 # COMMAND ----------
 
-Seleccion.shape
+display(Seleccion.Uso_Agrupado.value_counts())
 
 # COMMAND ----------
 
-PEMP_geom = gpd.GeoDataFrame.from_file('/dbfs/FileStore/shared_uploads/duvan.robles@metrodebogota.gov.co/PEMP/')
-BICS_geom = gpd.GeoDataFrame.from_file('/dbfs/FileStore/shared_uploads/duvan.robles@metrodebogota.gov.co/BICS/')
-#Seleccion=gpd.overlay(Seleccion, PEMP_geom, how='symmetric_difference')
-#Seleccion=gpd.overlay(Seleccion, BICS_geom, how='symmetric_difference')
-Seleccion.shape
+# PEMP_geom = gpd.GeoDataFrame.from_file('/dbfs/FileStore/shared_uploads/duvan.robles@metrodebogota.gov.co/PEMP/')
+# BICS_geom = gpd.GeoDataFrame.from_file('/dbfs/FileStore/shared_uploads/duvan.robles@metrodebogota.gov.co/BICS/').to_crs('epsg:4326')
+adquisicion = gpd.GeoDataFrame.from_file('/dbfs/FileStore/shared_uploads/duvan.robles@metrodebogota.gov.co/predios.shp').to_crs('epsg:4326')
+Entropia =  Seleccion.copy()
+Entropia=gpd.overlay(Entropia, adquisicion, how='difference', keep_geom_type=False)
+#Entropia=gpd.overlay(Entropia, BICS_geom, how='symmetric_difference')
+display(print(Entropia.shape))
 
 # COMMAND ----------
 
-Seleccion[Seleccion['PERIODO']==2022][['PERIODO', 'geometry']].sample(5000).explore()
+estaciones = gpd.read_file('/dbfs/FileStore/shared_uploads/duvan.robles@metrodebogota.gov.co/Estaciones_Mercator.shp').to_crs('esri:102233')
+Seleccion_Mercator=Entropia.to_crs('esri:102233')
+Entropia_Init=gpd.sjoin_nearest(Seleccion_Mercator,estaciones[['FID','NOMBRE','geometry']],distance_col="dist")
 
 # COMMAND ----------
 
-# listar en databricks
+Entropia_Init[(Entropia_Init['PERIODO']==2022) &(Entropia_Init['NOMBRE']=='E03')][['PERIODO', 'geometry']].explore(color = 'NOMBRE')
+
+# COMMAND ----------
+
+import pandas as pd
+pd.crosstab(Entropia_Init.Linea, Entropia_Init.PERIODO)
+
+# COMMAND ----------
+
+AGRUPADOS = Entropia_Init.groupby(by=['PERIODO', 'NOMBRE'])['AREA_CONSTRUIDA','AREA_TERRENO' ].sum().reset_index()
+AGRUPADOS_ZONA = Entropia_Init.groupby(by=['PERIODO', 'NOMBRE', 'Uso_Agrupado'])['AREA_CONSTRUIDA','AREA_TERRENO' ].sum().reset_index()
+
+Pre_Entropia = pd.merge(
+    AGRUPADOS_ZONA, AGRUPADOS,
+    how='inner',
+    left_on=['PERIODO', 'NOMBRE'],
+    right_on=['PERIODO', 'NOMBRE']).rename(
+        columns={'AREA_CONSTRUIDA_y':'Construida_total','AREA_TERRENO_y':'Terreno_total',
+                 'AREA_CONSTRUIDA_x':'AC_Uso','AREA_TERRENO_x':'AT_Uso'})
+
+# COMMAND ----------
+
+import numpy as np
+Pre_Entropia['factor'] = Pre_Entropia['AC_Uso']/Pre_Entropia['Construida_total']
+Pre_Entropia['ln_factor'] = np.log(Pre_Entropia['AC_Uso']/Pre_Entropia['Construida_total'])
+Pre_Entropia['MULT'] = Pre_Entropia['factor'] * Pre_Entropia['ln_factor']
+
+# COMMAND ----------
+
+Entropia_Final = Pre_Entropia.groupby(by=['PERIODO','NOMBRE']).agg({'MULT': 'sum'})
+Entropia_Final['Valor Entropia estacion'] = -Entropia_Final['MULT']/np.log(len(set(Pre_Entropia.Uso_Agrupado.values.tolist())))
+
+# COMMAND ----------
+
+import matplotlib.pyplot as plt
+import seaborn as sns
+import numpy as np
+
+# Linea 1
+
+Linea = 'PLMB'
+#for xanio in range(2006,2023):
+
+sns.set_theme(style="whitegrid")
+
+plt.figure(figsize=(20,10))
+plt.xticks(rotation=40)
+#lista = list(compilado[compilado.layer.isin(['E16'])].Uso_Agrupado.value_counts().head(10).to_dict().keys())
+# compila por estacion
+#table = pd.pivot_table(compilado[(compilado.layer.isin([e]) & compilado.Uso_Agrupado.isin(Usos_analisis) & compilado.Tiempo.isin(['5 min','10 min']))] , values=['AT_VM2'], index=['PERIODO','Uso_Agrupado'],aggfunc={'AT_VM2': np.mean})
+# compila el agregado
+#table = pd.pivot_table(compilado[(compilado.Linea.isin(['Linea 1']) & compilado.Tiempo.isin(['5 min','10 min']))] , values=['AC_VM2'], index=['PERIODO','Uso_Agrupado'],aggfunc={'AC_VM2': np.mean})
+
+ax = sns.lineplot(data=Entropia_Final, x="PERIODO", y="Valor Entropia estacion", hue="NOMBRE", style="NOMBRE", markers=True ,palette="tab20")
+
+#sns.lineplot(data=F[F.layer_1.isin(Estaciones_seg2)], x="PERIODO", y="Valor Entropia estacion", hue="NOMBRE", style="NOMBRE", markers=True ,palette="tab20")
+
+ax.set_title('{} - ENTROPIA TOTAL USOS -- {}'.format(Linea, sorted(list(set(Pre_Entropia.Uso_Agrupado.values.tolist()))) ).upper(),pad=10)
+ax.set_xlabel('Periodos Catastro'.upper())
+ax.set_ylabel('ENTROPIA TOTAL'.upper())
+
+plt.legend(title='Estación', loc='upper left', bbox_to_anchor=(1,1))
+plt.tight_layout()
+ax.yaxis.labelpad = 20
+ax.xaxis.labelpad = 20
+ax.tick_params(labelsize=12)
+ax.grid(alpha=0.5, linestyle='dashed', linewidth=1)
+ax.spines['bottom'].set_color('none')
+ax.spines['top'].set_color('none')
+ax.spines['left'].set_color('none')
+ax.spines['right'].set_color("none")
+
+# COMMAND ----------
+
+import seaborn as sns
+import matplotlib.pyplot as plt
+import seaborn as sns
+sns.set_theme(style="whitegrid")
+
+df2 = pd.pivot_table(Entropia_Final, values=['Valor Entropia estacion'], index=['NOMBRE', 'PERIODO']).unstack()
+
+#df2.set_index('NOMBRE', inplace = True)
+#sns.heatmap(df2, linewidth=.5)
+
+plt.figure(figsize=(25,10))
+plt.xticks(rotation=40)
+plt.title('{} - ENTROPIA TOTAL USOS -- {}'.format(Linea, sorted(list(set(Pre_Entropia.Uso_Agrupado.values.tolist())))))
+cmap = sns.diverging_palette(230, 20, sep=70 , as_cmap=True)
+sns.heatmap(df2, cmap=cmap, annot=True, fmt=".3f", linewidths=.5)
+
+# COMMAND ----------
+
+# MAGIC %md
+# MAGIC # listar en databricks
 
 # COMMAND ----------
 
