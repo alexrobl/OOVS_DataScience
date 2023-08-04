@@ -1,6 +1,11 @@
-# Oovs Medidas Banca
+# OOVS / INDICADORES BANCA
+###### Indicadores de resultados requeridos por la banca en el marco del convenio de cofinanciacion de la Primera Linea del Metro de Bogotá.
+------------
+En el marco de la Linea de Credito Condicional para Proyectos de Inversion (CCLIP) para la Primera Linea del Metro de Bogota (PLMB), se establecieron los indicadores de resultados esperados de la operacion, cuyo objetivo es contribuir a mejorar la movilidad y la calidad de vida de la población de Bogotá a través de la PLMB, la cual aumentará la capacidad y mejorará la calidad de servicio del transporte y el aire, incluyendo una reducción de GEI, en el corredor del metro, así como la integración de la movilidad y **el desarrollo urbano mediante un patrón de ocupación del suelo eficiente, más intenso y diverso**, a lo largo del corredor de la PLMB.
 
-# **ENTROPIA**
+Con respecto al desarrollo urbano, se tiene el resultado #5: Promover un uso mixto compacto y más denso en la zonificación del suelo, se definieron los indicadores de Entropia (ENT) y Factor de Ocupacion Total (FOT), como se establece a continuacion:
+
+## **ENTROPIA**
 
 La ENT, o entropía, se calcula a lo largo del corredor de la PLMB en una zona de influencia de 100 m a cada lado del corredor.
 
